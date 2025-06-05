@@ -10,5 +10,5 @@ asi que tendras que quitar las llaves de acceso que tienes y tendras que crear u
 una vez que no tengas ninguna llave de acceso ve a este link https://myaccount.google.com/apppasswords aqui crearas la aplicacion le pondras un nombre y al darle al boton de "crear" te saldra una contraseña
 esa es la contraseña que pondras en la funcion de "EnviarEmail" buscas la parte que dice passw='tu_contraseña_de_aplicación' pones la contraseña de tu aplicacion sin espacios y listo ya te llegaran
 
-por obvias razones no te enseñare a como infectar a otra persona ni como hacer un ejecutable ni los metodos de inyeccion, este scrip esta hecho con fines educativos si lo pruebas funciona en tu computadora.
+por obvias razones no te enseñare a como infectar a otra persona ni como hacer un ejecutable ni los metodos de inyeccion, este script esta hecho con fines educativos si lo pruebas funciona en tu computadora.
 --gracias por leer:D
