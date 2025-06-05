@@ -1,5 +1,5 @@
 la version de python que estoy utilizando es una de las modernas es  la 3.13.3
-las librerias que vas a necesitar es: pynput y en su caso pywin32 esta ultima no es tan necesaria pero si t la pide instalala te dejo codigo:
+las librerias que vas a necesitar es: pynput y en su caso pywin32 esta ultima no es tan necesaria pero si te la pide instalala te dejo codigo:
 -- pip install pynput 
 -- pip install pywin32
 las otras que ves en el codigo esas vienen por defecto en python
